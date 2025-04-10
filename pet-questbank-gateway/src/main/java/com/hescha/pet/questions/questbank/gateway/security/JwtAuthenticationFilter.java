@@ -27,7 +27,7 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
         ServerHttpRequest request = exchange.getRequest();
         // Пропускаем запросы к открытым ресурсам
         String path = request.getURI().getPath();
-        if (path.startsWith("/auth/login") || path.startsWith("/auth/refresh")) {
+        if (path.startsWith("/auth/login") || path.startsWith("/auth/refresh") || path.startsWith("/auth/logout")) {
             return chain.filter(exchange);
         }
 
