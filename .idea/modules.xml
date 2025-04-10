@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth.main.iml" filepath="$PROJECT_DIR$/.idea/modules/auth.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth.test.iml" filepath="$PROJECT_DIR$/.idea/modules/auth.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/gateway.main.iml" filepath="$PROJECT_DIR$/.idea/modules/gateway.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/pet-questbank-microservices.iml" filepath="$PROJECT_DIR$/.idea/pet-questbank-microservices.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/questbank.main.iml" filepath="$PROJECT_DIR$/.idea/modules/questbank.main.iml" />
