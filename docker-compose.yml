@@ -1,0 +1,34 @@
+version: "3.8"
+services:
+  gateway-service:
+    build:
+      context: ./pet-questbank-gateway
+      dockerfile: Dockerfile
+    container_name: gateway-service
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_APPLICATION_NAME=gateway-service
+    depends_on:
+      - auth-service
+      - questbank-service
+
+  auth-service:
+    build:
+      context: ./pet-questbank-auth
+      dockerfile: Dockerfile
+    container_name: auth-service
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_APPLICATION_NAME=auth-service
+
+  questbank-service:
+    build:
+      context: ./pet-questbank
+      dockerfile: Dockerfile
+    container_name: questbank-service
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_APPLICATION_NAME=questbank-service

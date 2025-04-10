@@ -1,0 +1,23 @@
+jwt:
+  secret: pet_project
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: auth_service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/auth/**
+
+        - id: question_bank
+          uri: http://localhost:8082
+          predicates:
+            - Path=/question/**
+
+
