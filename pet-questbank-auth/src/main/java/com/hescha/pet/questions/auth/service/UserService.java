@@ -36,8 +36,13 @@ public class UserService extends CrudService<User> implements UserDetailsService
     }
 
     private void updateFields(User entity, User read) {
+        if (entity.getPassword() != null
+                && !entity.getPassword().isEmpty()
+                && (!entity.getPassword().equals(read.getPassword()) && !passwordEncoder.encode(read.getPassword()).equals(entity.getPassword()))
+        ) {
+            read.setPassword(passwordEncoder.encode(entity.getPassword()));
+        }
         read.setUsername(entity.getUsername());
-        read.setPassword(passwordEncoder.encode(entity.getPassword()));
         read.setFirstName(entity.getFirstName());
         read.setLastName(entity.getLastName());
         read.setEmail(entity.getEmail());

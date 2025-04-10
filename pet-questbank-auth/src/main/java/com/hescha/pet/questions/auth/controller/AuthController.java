@@ -27,12 +27,15 @@ public class AuthController {
     public ResponseEntity<?> getToken(
             @RequestParam String username,
             @RequestParam String password) {
+        User user = userService.loadUserByUsername(username);
+        if (user == null) {
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+        }
         try {
             manager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         } catch (BadCredentialsException e) {
-            return new ResponseEntity<>("BadCredentials", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
         }
-        User user = userService.loadUserByUsername(username);
         TokenDto token = jwtTokenUtil.generateToken(user);
         return new ResponseEntity<>(token, HttpStatus.OK);
     }
@@ -53,10 +56,15 @@ public class AuthController {
     }
 
     @PostMapping("/registration")
-    public User registrationPost(
+    public ResponseEntity<?> registrationPost(
             @RequestParam String username,
             @RequestParam String password) {
-        return userService.register(username, password);
+        if (userService.loadUserByUsername(username) != null) {
+            return new ResponseEntity<>("Username already exists", HttpStatus.CONFLICT);
+        }
+        User user = userService.register(username, password);
+        TokenDto token = jwtTokenUtil.generateToken(user);
+        return new ResponseEntity<>(token, HttpStatus.OK);
     }
 
     @GetMapping("/user")

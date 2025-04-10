@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="pet-questbank-authDB" uuid="9bf5e9b6-57fa-4572-99e9-e05baa62c55e">
+    <data-source source="LOCAL" name="pet-questbank-authDB" uuid="ecce6da0-d8e1-4313-801b-b887b7a8645f">
       <driver-ref>h2.unified</driver-ref>
       <synchronize>true</synchronize>
       <imported>true</imported>
