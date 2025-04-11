@@ -27,13 +27,12 @@ public class QuestionController {
 
     @PostMapping
     public ResponseEntity<Question> save(@RequestBody Question entity) {
-        Question saved;
-        if (entity.getId() == null) {
-            saved = service.create(entity);
-        } else {
-            saved = service.update(entity.getId(), entity);
-        }
-        return ResponseEntity.ok(saved);
+        return ResponseEntity.ok(service.create(entity));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Question> update(@PathVariable Long id, @RequestBody Question entity) {
+        return ResponseEntity.ok(service.update(id, entity));
     }
 
     @DeleteMapping("/{id}")

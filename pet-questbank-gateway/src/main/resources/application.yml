@@ -5,6 +5,12 @@ server:
   port: 8080
 
 spring:
+  cache:
+    type: redis
+  data:
+    redis:
+      host: redis-service
+      port: 6379
   application:
     name: gateway-service
   cloud:

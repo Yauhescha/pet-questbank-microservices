@@ -8,6 +8,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +24,7 @@ public class JwtTokenUtil {
     private static final String TOKEN_TYPE = "type";
 
     private final UserService userService;
+    private final RedisCacheManager cacheManager;
 
     @Value("${jwt.secret}")
     private String secret;
@@ -35,6 +37,9 @@ public class JwtTokenUtil {
     public TokenDto generateToken(User user) {
         Pair<String, Date> accessToken = generateAccessToken(user);
         Pair<String, Date> refreshToken = generateRefreshToken(user);
+
+        Objects.requireNonNull(cacheManager.getCache("users")).put(user.getUsername(), user.getCurrentTokenId());
+
         return TokenDto.builder()
                 .accessToken(accessToken.getFirst())
                 .accessExpiresIn(accessToken.getSecond())

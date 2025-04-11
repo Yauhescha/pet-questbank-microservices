@@ -1,7 +1,5 @@
 package com.hescha.pet.questions.auth.security;
 
-import com.hescha.pet.questions.auth.model.User;
-import com.hescha.pet.questions.auth.service.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
 import jakarta.servlet.FilterChain;
@@ -27,7 +25,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private static final String BEARER_PREFIX = "Bearer ";
 
     private final JwtTokenUtil jwtTokenUtil;
-    private final UserService userService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -41,15 +38,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 // Проверяем, что это access token, а не refresh token
                 if (jwtTokenUtil.isAccessToken(authHeader)) {
                     username = jwtTokenUtil.getUsername(authHeader);
-                    String tokenIdClaim = jwtTokenUtil.getTokenId(authHeader);
-
-                    User user = userService.loadUserByUsername(username);
-                    if (user == null || !tokenIdClaim.equals(user.getCurrentTokenId())) {
-                        log.debug("Invalid token: token id mismatch");
-                        // Отказываем в доступе
-                        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token");
-                        return;
-                    }
                 } else {
                     log.debug("Received refresh token in protected resource request");
                 }
