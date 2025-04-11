@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Главная страница</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+<h1>Главная страница</h1>
+<nav>
+    <ul>
+        <li><a th:href="@{/questions}">Список вопросов (Question)</a></li>
+        <li><a th:href="@{/users}">Список пользователей (User)</a></li>
+    </ul>
+</nav>
+<p>Добро пожаловать в приложение!</p>
+</body>
+</html>

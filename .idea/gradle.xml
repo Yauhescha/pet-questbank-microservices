@@ -20,6 +20,14 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/pet-questbank-front" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/pet-questbank-front" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/pet-questbank-gateway" />
         <option name="modules">
           <set>

@@ -4,6 +4,7 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/pet-questbank" />
     <file type="web" url="file://$PROJECT_DIR$/pet-questbank-auth" />
+    <file type="web" url="file://$PROJECT_DIR$/pet-questbank-front" />
     <file type="web" url="file://$PROJECT_DIR$/pet-questbank-gateway" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_21_PREVIEW" project-jdk-name="21" project-jdk-type="JavaSDK">

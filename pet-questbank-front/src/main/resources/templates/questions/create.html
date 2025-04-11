@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Создать вопрос</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+<h1>Создать вопрос</h1>
+<a th:href="@{/questions}">Вернуться к списку</a>
+<br/><br/>
+
+<form th:action="@{/questions}" th:object="${question}" method="post">
+    <label for="question">Вопрос:</label><br/>
+    <input type="text" id="question" th:field="*{question}" /><br/><br/>
+
+    <label for="answer">Ответ:</label><br/>
+    <textarea id="answer" th:field="*{answer}" rows="4" cols="50"></textarea><br/><br/>
+
+    <button type="submit">Сохранить</button>
+</form>
+</body>
+</html>
