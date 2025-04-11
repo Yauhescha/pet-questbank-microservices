@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: auth_service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/auth/**,/user/**
+        - id: question_bank
+          uri: http://localhost:8082
+          predicates:
+            - Path=/question/**

@@ -19,7 +19,7 @@ public class QuestionController {
 
     private final RestTemplate restTemplate;
 
-    @Value("${backend.url} + '/questions'")
+    @Value("${backend.url}/question")
     private String questionApiUrl;
 
     @GetMapping

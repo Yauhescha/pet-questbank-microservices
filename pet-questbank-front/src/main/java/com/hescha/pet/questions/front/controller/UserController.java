@@ -20,7 +20,7 @@ public class UserController {
 
     private final RestTemplate restTemplate;
 
-    @Value("${backend.url} + '/user'")
+    @Value("${backend.url}/user")
     private String userApiUrl;
 
     @GetMapping
