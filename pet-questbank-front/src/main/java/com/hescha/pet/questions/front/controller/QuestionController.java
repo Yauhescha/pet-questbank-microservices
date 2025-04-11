@@ -1,6 +1,7 @@
 package com.hescha.pet.questions.front.controller;
 
 import com.hescha.pet.questions.front.model.Question;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,20 +14,18 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/questions")
+@RequiredArgsConstructor
 public class QuestionController {
 
     private final RestTemplate restTemplate;
 
-    @Value("${backend.url.questions:http://localhost:1234/questions}")
+    @Value("${backend.url} + '/questions'")
     private String questionApiUrl;
 
-    public QuestionController(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
-
     @GetMapping
-    public String getAllQuestions(Model model) {
-        ResponseEntity<Question[]> response = restTemplate.getForEntity(questionApiUrl, Question[].class);
+    public String listQuestions(Model model) {
+        ResponseEntity<Question[]> response =
+                restTemplate.getForEntity(questionApiUrl, Question[].class);
         List<Question> questions = Arrays.asList(response.getBody());
         model.addAttribute("questions", questions);
         return "questions/list";

@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="~{fragments/layout :: head}">
     <title>Список вопросов</title>
-    <meta charset="UTF-8" />
 </head>
 <body>
-<h1>Список вопросов</h1>
-<a th:href="@{/}">На главную</a>
-<br/><br/>
+<th:block th:replace="~{fragments/layout :: navbar}"></th:block>
 
-<a th:href="@{/questions/create}">Создать новый вопрос</a>
+<div class="container mt-4">
+    <h2>Список вопросов</h2>
+    <a class="btn btn-success mb-2" th:href="@{/questions/create}">Создать вопрос</a>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Question</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="q : ${questions}">
+            <td th:text="${q.id}"></td>
+            <td th:text="${q.question}"></td>
+            <td>
+                <a class="btn btn-sm btn-info" th:href="@{|/questions/${q.id}|}">View</a>
+                <a class="btn btn-sm btn-primary" th:href="@{|/questions/edit/${q.id}|}">Edit</a>
+                <a class="btn btn-sm btn-danger" th:href="@{|/questions/delete/${q.id}|}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
-<table border="1" cellpadding="5" cellspacing="0">
-    <tr>
-        <th>ID</th>
-        <th>Question</th>
-        <th>Actions</th>
-    </tr>
-    <tr th:each="q : ${questions}">
-        <td th:text="${q.id}"></td>
-        <td th:text="${q.question}"></td>
-        <td>
-            <a th:href="@{|/questions/${q.id}|}">View</a> |
-            <a th:href="@{|/questions/edit/${q.id}|}">Edit</a> |
-            <a th:href="@{|/questions/delete/${q.id}|}">Delete</a>
-        </td>
-    </tr>
-</table>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
 </body>
 </html>

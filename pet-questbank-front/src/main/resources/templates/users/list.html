@@ -1,40 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="~{fragments/layout :: head}">
     <title>Список пользователей</title>
-    <meta charset="UTF-8" />
 </head>
 <body>
-<h1>Список пользователей</h1>
-<a th:href="@{/}">На главную</a>
-<br/><br/>
+<th:block th:replace="~{fragments/layout :: navbar}"></th:block>
 
-<a th:href="@{/users/create}">Создать нового пользователя</a>
+<div class="container mt-4">
+    <h2>Список пользователей</h2>
+    <a class="btn btn-success mb-2" th:href="@{/users/create}">Создать пользователя</a>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="u : ${users}">
+            <td th:text="${u.id}"></td>
+            <td th:text="${u.username}"></td>
+            <td th:text="${u.firstName}"></td>
+            <td th:text="${u.lastName}"></td>
+            <td th:text="${u.email}"></td>
+            <td th:text="${u.phone}"></td>
+            <td>
+                <a class="btn btn-sm btn-info" th:href="@{|/users/${u.id}|}">View</a>
+                <a class="btn btn-sm btn-primary" th:href="@{|/users/edit/${u.id}|}">Edit</a>
+                <a class="btn btn-sm btn-danger" th:href="@{|/users/delete/${u.id}|}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
-<table border="1" cellpadding="5" cellspacing="0">
-    <tr>
-        <th>ID</th>
-        <th>Username</th>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Actions</th>
-    </tr>
-    <tr th:each="u : ${users}">
-        <td th:text="${u.id}"></td>
-        <td th:text="${u.username}"></td>
-        <td th:text="${u.firstName}"></td>
-        <td th:text="${u.lastName}"></td>
-        <td th:text="${u.email}"></td>
-        <td th:text="${u.phone}"></td>
-        <td>
-            <a th:href="@{|/users/${u.id}|}">View</a> |
-            <a th:href="@{|/users/edit/${u.id}|}">Edit</a> |
-            <a th:href="@{|/users/delete/${u.id}|}">Delete</a>
-        </td>
-    </tr>
-</table>
-
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
 </body>
 </html>

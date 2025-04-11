@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="~{fragments/layout :: head}">
     <title>Создать вопрос</title>
-    <meta charset="UTF-8" />
 </head>
 <body>
-<h1>Создать вопрос</h1>
-<a th:href="@{/questions}">Вернуться к списку</a>
-<br/><br/>
+<th:block th:replace="~{fragments/layout :: navbar}"></th:block>
 
-<form th:action="@{/questions}" th:object="${question}" method="post">
-    <label for="question">Вопрос:</label><br/>
-    <input type="text" id="question" th:field="*{question}" /><br/><br/>
+<div class="container mt-4">
+    <h2>Создать вопрос</h2>
+    <form th:action="@{/questions}" th:object="${question}" method="post">
+        <div class="mb-3">
+            <label for="question" class="form-label">Вопрос</label>
+            <input type="text" class="form-control" id="question" th:field="*{question}" required/>
+        </div>
+        <div class="mb-3">
+            <label for="answer" class="form-label">Ответ</label>
+            <textarea class="form-control" id="answer" rows="4" th:field="*{answer}" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a class="btn btn-secondary" th:href="@{/questions}">Отмена</a>
+    </form>
+</div>
 
-    <label for="answer">Ответ:</label><br/>
-    <textarea id="answer" th:field="*{answer}" rows="4" cols="50"></textarea><br/><br/>
-
-    <button type="submit">Сохранить</button>
-</form>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
 </body>
 </html>

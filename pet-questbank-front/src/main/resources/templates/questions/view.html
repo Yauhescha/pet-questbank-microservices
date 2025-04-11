@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="~{fragments/layout :: head}">
     <title>Просмотр вопроса</title>
-    <meta charset="UTF-8" />
 </head>
 <body>
-<h1>Просмотр вопроса</h1>
-<a th:href="@{/questions}">Вернуться к списку</a>
-<br/><br/>
+<th:block th:replace="~{fragments/layout :: navbar}"></th:block>
 
-<p><strong>ID:</strong> <span th:text="${question.id}"></span></p>
-<p><strong>Вопрос:</strong> <span th:text="${question.question}"></span></p>
-<p><strong>Ответ:</strong></p>
-<p th:text="${question.answer}"></p>
+<div class="container mt-4">
+    <h2>Просмотр вопроса</h2>
+    <p><strong>ID:</strong> <span th:text="${question.id}"></span></p>
+    <p><strong>Вопрос:</strong> <span th:text="${question.question}"></span></p>
+    <p><strong>Ответ:</strong></p>
+    <p th:text="${question.answer}"></p>
+    <a class="btn btn-secondary" th:href="@{/questions}">Назад</a>
+</div>
+
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
 </body>
 </html>

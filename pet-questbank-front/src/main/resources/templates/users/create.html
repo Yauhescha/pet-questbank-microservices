@@ -1,34 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="~{fragments/layout :: head}">
     <title>Создать пользователя</title>
-    <meta charset="UTF-8" />
 </head>
 <body>
-<h1>Создать пользователя</h1>
-<a th:href="@{/users}">Вернуться к списку</a>
-<br/><br/>
+<th:block th:replace="~{fragments/layout :: navbar}"></th:block>
 
-<form th:action="@{/users}" th:object="${user}" method="post">
-    <label for="username">Username:</label><br/>
-    <input type="text" id="username" th:field="*{username}" /><br/><br/>
+<div class="container mt-4">
+    <h2>Создать пользователя</h2>
+    <form th:action="@{/users}" th:object="${user}" method="post">
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input class="form-control" type="text" id="username" th:field="*{username}" required/>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input class="form-control" type="password" id="password" th:field="*{password}" required/>
+        </div>
+        <div class="mb-3">
+            <label for="firstName" class="form-label">First name</label>
+            <input class="form-control" type="text" id="firstName" th:field="*{firstName}"/>
+        </div>
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Last name</label>
+            <input class="form-control" type="text" id="lastName" th:field="*{lastName}"/>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input class="form-control" type="email" id="email" th:field="*{email}"/>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone</label>
+            <input class="form-control" type="text" id="phone" th:field="*{phone}"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a class="btn btn-secondary" th:href="@{/users}">Отмена</a>
+    </form>
+</div>
 
-    <label for="password">Password:</label><br/>
-    <input type="password" id="password" th:field="*{password}" /><br/><br/>
-
-    <label for="firstName">First name:</label><br/>
-    <input type="text" id="firstName" th:field="*{firstName}" /><br/><br/>
-
-    <label for="lastName">Last name:</label><br/>
-    <input type="text" id="lastName" th:field="*{lastName}" /><br/><br/>
-
-    <label for="email">Email:</label><br/>
-    <input type="text" id="email" th:field="*{email}" /><br/><br/>
-
-    <label for="phone">Phone:</label><br/>
-    <input type="text" id="phone" th:field="*{phone}" /><br/><br/>
-
-    <button type="submit">Сохранить</button>
-</form>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
 </body>
 </html>

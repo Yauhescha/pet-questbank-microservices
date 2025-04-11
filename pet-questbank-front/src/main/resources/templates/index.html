@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Главная страница</title>
-    <meta charset="UTF-8" />
+
+<head th:replace="~{fragments/layout :: head}">
+
+    <title th:text="'Главная страница'"></title>
 </head>
 <body>
-<h1>Главная страница</h1>
-<nav>
-    <ul>
-        <li><a th:href="@{/questions}">Список вопросов (Question)</a></li>
-        <li><a th:href="@{/users}">Список пользователей (User)</a></li>
-    </ul>
-</nav>
-<p>Добро пожаловать в приложение!</p>
+
+<th:block th:replace="~{fragments/layout :: navbar}"></th:block>
+
+<div class="container mt-4">
+    <h1>Главная страница</h1>
+    <hr/>
+    <p th:if="${currentUser != null}">
+        Вы вошли как <b th:text="${currentUser}">user</b>.
+    </p>
+    <p th:if="${currentUser == null}">
+        Вы не авторизованы.
+    </p>
+    <p>
+        Пример приложения на Thymeleaf с JWT авторизацией через RestTemplate.
+    </p>
+</div>
+
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+
 </body>
 </html>
