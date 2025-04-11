@@ -26,7 +26,7 @@ public class QuestionController {
     }
 
     @PostMapping
-    public ResponseEntity<Question> save(@ModelAttribute ("entity") Question entity) {
+    public ResponseEntity<Question> save(@RequestBody Question entity) {
         Question saved;
         if (entity.getId() == null) {
             saved = service.create(entity);

@@ -26,7 +26,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> save(@ModelAttribute("entity") User entity) {
+    public ResponseEntity<User> save(@RequestBody User entity) {
         User saved;
         if (entity.getId() == null) {
             saved = service.create(entity);
