@@ -4,6 +4,7 @@ import com.hescha.pet.questions.auth.model.User;
 import com.hescha.pet.questions.auth.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService service;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping
     public ResponseEntity<List<User>> readAll() {
@@ -27,13 +29,13 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> save(@RequestBody User entity) {
-        User saved;
-        if (entity.getId() == null) {
-            saved = service.create(entity);
-        } else {
-            saved = service.update(entity.getId(), entity);
-        }
-        return ResponseEntity.ok(saved);
+        passwordEncoder.encode(entity.getPassword());
+        return ResponseEntity.ok(service.create(entity));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User entity) {
+        return ResponseEntity.ok(service.update(id, entity));
     }
 
     @DeleteMapping("/{id}")

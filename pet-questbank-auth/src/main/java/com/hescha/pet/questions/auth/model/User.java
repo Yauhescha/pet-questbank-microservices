@@ -1,6 +1,5 @@
 package com.hescha.pet.questions.auth.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -24,7 +23,6 @@ public class User extends AbstractEntity implements UserDetails {
     @Column(unique = true, nullable = false)
     private String username;
     @Column
-    @JsonIgnore
     private String password;
     @Column(name = "first_name")
     private String firstName;
