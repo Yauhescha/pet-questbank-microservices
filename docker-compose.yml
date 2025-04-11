@@ -6,6 +6,16 @@ services:
     ports:
       - "6379:6379"
 
+  front-service:
+    build:
+      context: ./pet-questbank-front
+      dockerfile: Dockerfile
+    container_name: front-service
+    ports:
+      - "80:80"
+    environment:
+      - SPRING_APPLICATION_NAME=front-service
+
   gateway-service:
     build:
       context: ./pet-questbank-gateway
