@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head">
+    <title>Редактировать тему</title>
+</head>
+<body>
+<th:block th:replace="fragments/layout :: navbar"></th:block>
+
+<div class="container mt-4">
+    <h2>Редактировать тему</h2>
+    <form th:action="@{|/topics/update/${topic.id}|}" th:object="${topic}" method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label">Название</label>
+            <input type="text" class="form-control" id="name" th:field="*{name}" required/>
+        </div>
+        <button type="submit" class="btn btn-primary">Обновить</button>
+        <a class="btn btn-secondary" th:href="@{/topics}">Отмена</a>
+    </form>
+</div>
+
+<th:block th:replace="fragments/layout :: scripts"></th:block>
+</body>
+</html>

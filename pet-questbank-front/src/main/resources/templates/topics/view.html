@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head">
+    <title>Просмотр темы</title>
+</head>
+<body>
+<th:block th:replace="fragments/layout :: navbar"></th:block>
+
+<div class="container mt-4">
+    <h2>Просмотр темы</h2>
+    <p><strong>ID:</strong> <span th:text="${topic.id}"></span></p>
+    <p><strong>Название:</strong> <span th:text="${topic.name}"></span></p>
+
+    <hr/>
+    <p><strong>Вопросы в данной теме:</strong></p>
+    <ul>
+        <li th:each="q : ${topic.questions}">
+            <a th:href="@{|/questions/${q.id}|}" th:text="${q.question}"></a>
+        </li>
+    </ul>
+
+    <a class="btn btn-secondary" th:href="@{/topics}">Назад</a>
+</div>
+
+<th:block th:replace="fragments/layout :: scripts"></th:block>
+</body>
+</html>

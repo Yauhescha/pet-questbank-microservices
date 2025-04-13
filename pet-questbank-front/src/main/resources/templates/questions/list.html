@@ -20,6 +20,7 @@
         <tbody>
         <tr th:each="q : ${questions}">
             <td th:text="${q.id}"></td>
+            <td th:text="${q.topic != null ? q.topic.name : 'Без темы'}"></td>
             <td th:text="${q.question}"></td>
             <td>
                 <a class="btn btn-sm btn-info" th:href="@{|/questions/${q.id}|}">View</a>

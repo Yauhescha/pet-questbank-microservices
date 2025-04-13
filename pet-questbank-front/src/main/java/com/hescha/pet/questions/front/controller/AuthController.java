@@ -2,8 +2,6 @@ package com.hescha.pet.questions.front.controller;
 
 import com.hescha.pet.questions.front.service.AuthService;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

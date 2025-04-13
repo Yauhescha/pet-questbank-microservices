@@ -23,4 +23,4 @@ spring:
         - id: question_bank
           uri: http://localhost:8082
           predicates:
-            - Path=/question/**
+            - Path=/question/**,/topic/**

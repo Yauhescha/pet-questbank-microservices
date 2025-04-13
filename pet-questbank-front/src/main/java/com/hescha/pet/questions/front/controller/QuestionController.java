@@ -1,6 +1,7 @@
 package com.hescha.pet.questions.front.controller;
 
 import com.hescha.pet.questions.front.model.Question;
+import com.hescha.pet.questions.front.model.Topic;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,8 @@ public class QuestionController {
 
     @Value("${backend.url}/question")
     private String questionApiUrl;
+    @Value("${backend.url}/topic")
+    private String topicApiUrl;
 
     @GetMapping
     public String listQuestions(Model model) {
@@ -34,6 +37,9 @@ public class QuestionController {
     @GetMapping("/create")
     public String showCreateForm(Model model) {
         model.addAttribute("question", new Question());
+        ResponseEntity<Topic[]> response = restTemplate.getForEntity(topicApiUrl, Topic[].class);
+        List<Topic> allTopics = Arrays.asList(response.getBody());
+        model.addAttribute("topics", allTopics);
         return "questions/create";
     }
 
@@ -47,6 +53,10 @@ public class QuestionController {
     public String showEditForm(@PathVariable Long id, Model model) {
         Question question = restTemplate.getForObject(questionApiUrl + "/" + id, Question.class);
         model.addAttribute("question", question);
+        // Получаем все темы, чтобы отобразить в <select>
+        ResponseEntity<Topic[]> resp = restTemplate.getForEntity(topicApiUrl, Topic[].class);
+        List<Topic> allTopics = Arrays.asList(resp.getBody());
+        model.addAttribute("topics", allTopics);
         return "questions/edit";
     }
 

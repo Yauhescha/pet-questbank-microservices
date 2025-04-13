@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head}">
+    <title>Список тем</title>
+</head>
+<body>
+<th:block th:replace="~{fragments/layout :: navbar}"></th:block>
+
+<div class="container mt-4">
+    <h2>Список тем</h2>
+    <a class="btn btn-success mb-2" th:href="@{/topics/create}">Создать тему</a>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="t : ${topics}">
+            <td th:text="${t.id}"></td>
+            <td th:text="${t.name}"></td>
+            <td>
+<!--                <a class="btn btn-sm btn-info" th:href="@{|/topics/${t.id}|}">View</a>-->
+                <a class="btn btn-sm btn-primary" th:href="@{|/topics/edit/${t.id}|}">Edit</a>
+                <a class="btn btn-sm btn-danger" th:href="@{|/topics/delete/${t.id}|}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

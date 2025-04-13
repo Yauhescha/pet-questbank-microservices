@@ -1,27 +1,74 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: head}">
+<head th:replace="fragments/layout :: head">
     <title>Создать вопрос</title>
+    <!-- Подключаем Quill CSS -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 </head>
 <body>
-<th:block th:replace="~{fragments/layout :: navbar}"></th:block>
+<th:block th:replace="fragments/layout :: navbar"></th:block>
 
 <div class="container mt-4">
     <h2>Создать вопрос</h2>
-    <form th:action="@{/questions}" th:object="${question}" method="post">
+    <form id="questionForm" th:action="@{/questions}" th:object="${question}" method="post">
         <div class="mb-3">
             <label for="question" class="form-label">Вопрос</label>
             <input type="text" class="form-control" id="question" th:field="*{question}" required/>
         </div>
+
         <div class="mb-3">
-            <label for="answer" class="form-label">Ответ</label>
-            <textarea class="form-control" id="answer" rows="4" th:field="*{answer}" required></textarea>
+            <label class="form-label" for="topicSelect">Тема</label>
+            <select class="form-select" id="topicSelect" th:field="*{topic.id}">
+                <option value="">-- выберите тему --</option>
+                <option th:each="t : ${topics}"
+                        th:value="${t.id}"
+                        th:text="${t.name}">
+                </option>
+            </select>
         </div>
+
+        <!-- Скрытое или просто невидимое поле для хранения HTML-ответа -->
+        <!-- Можно сделать rows="10", но если используем Quill – обычно просто прячем -->
+        <textarea class="form-control" id="answer" th:field="*{answer}" rows="10" style="display: none;"></textarea>
+
+        <div class="mb-3">
+            <label class="form-label">Ответ (HTML)</label>
+            <!-- Контейнер для Quill -->
+            <div id="editor" style="min-height: 200px; border: 1px solid #ccc;"></div>
+        </div>
+
         <button type="submit" class="btn btn-primary">Сохранить</button>
         <a class="btn btn-secondary" th:href="@{/questions}">Отмена</a>
     </form>
 </div>
 
-<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+<!-- Подключаем Quill JS -->
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<!-- И наш скрипт инициализации -->
+<script>
+    // Инициализация Quill
+    const quill = new Quill('#editor', {
+        theme: 'snow'
+    });
+
+    // Когда вся страница загружена...
+    document.addEventListener('DOMContentLoaded', function() {
+        const answerField = document.getElementById('answer');
+        // 1) Переносим содержимое из textarea в Quill
+        //    (если пользователь открыл страницу "Редактировать" и уже есть текст)
+        const initialHtml = answerField.value;
+        quill.root.innerHTML = initialHtml;
+    });
+
+    // При сабмите формы копируем HTML из Quill -> textarea
+    const form = document.getElementById('questionForm');
+    form.addEventListener('submit', function() {
+        const answerField = document.getElementById('answer');
+        const quillHtml = quill.root.innerHTML;
+        answerField.value = quillHtml;
+    });
+</script>
+
+<th:block th:replace="fragments/layout :: scripts"></th:block>
 </body>
 </html>
