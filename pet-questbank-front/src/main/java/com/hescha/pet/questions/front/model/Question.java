@@ -1,5 +1,6 @@
 package com.hescha.pet.questions.front.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import java.util.Objects;
 public class Question extends AbstractEntity {
     private String question;
     private String answer;
+    @JsonBackReference
     private Topic topic;
 
     @Override

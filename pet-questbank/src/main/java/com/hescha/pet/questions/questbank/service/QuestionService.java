@@ -1,6 +1,7 @@
 package com.hescha.pet.questions.questbank.service;
 
 import com.hescha.pet.questions.questbank.model.Question;
+import com.hescha.pet.questions.questbank.model.Topic;
 import com.hescha.pet.questions.questbank.repository.QuestionRepository;
 import org.springframework.stereotype.Service;
 
@@ -35,5 +36,9 @@ public class QuestionService extends CrudService<Question> {
         read.setQuestion(entity.getQuestion());
         read.setAnswer(entity.getAnswer());
         read.setTopic(entity.getTopic());
+    }
+
+    public List<Question> findByTopic(Topic topic) {
+        return repository.findByTopic(topic);
     }
 }

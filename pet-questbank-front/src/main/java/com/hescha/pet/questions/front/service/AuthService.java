@@ -4,19 +4,22 @@ package com.hescha.pet.questions.front.service;
 import com.hescha.pet.questions.front.dto.TokenDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class AuthService {
-
-    private final RestTemplate restTemplate;
-    private final TokenStorage tokenStorage;
+    @Autowired
+    @Lazy
+    private RestTemplate restTemplate;
+    @Autowired
+    private TokenStorage tokenStorage;
 
     @Value("${backend.url}")
     private String backendUrl;
@@ -89,7 +92,8 @@ public class AuthService {
             if (response.getStatusCode().is2xxSuccessful()) {
                 return response.getBody();
             }
-        } catch (Exception ignored) {
+        } catch (Exception ex) {
+            log.error(ex.getMessage());
         }
         return null;
     }

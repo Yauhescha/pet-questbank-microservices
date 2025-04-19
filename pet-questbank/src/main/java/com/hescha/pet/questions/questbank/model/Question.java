@@ -1,5 +1,6 @@
 package com.hescha.pet.questions.questbank.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -23,6 +24,7 @@ public class Question extends AbstractEntity {
     // Много вопросов -> одна тема
     @ManyToOne
     @JoinColumn(name = "topic_id")
+    @JsonBackReference
     private Topic topic;
 
     @Override

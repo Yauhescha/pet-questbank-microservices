@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -30,6 +31,7 @@ public class QuestionController {
         ResponseEntity<Question[]> response =
                 restTemplate.getForEntity(questionApiUrl, Question[].class);
         List<Question> questions = Arrays.asList(response.getBody());
+        Collections.reverse(questions);
         model.addAttribute("questions", questions);
         return "questions/list";
     }
