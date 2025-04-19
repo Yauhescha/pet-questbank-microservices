@@ -1,6 +1,7 @@
 package com.hescha.pet.questions.questbank.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -15,6 +16,11 @@ import java.util.Objects;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id",
+        scope      = Question.class
+)
 public class Question extends AbstractEntity {
     @Column
     private String question;
@@ -24,7 +30,6 @@ public class Question extends AbstractEntity {
     // Много вопросов -> одна тема
     @ManyToOne
     @JoinColumn(name = "topic_id")
-    @JsonBackReference
     private Topic topic;
 
     @Override

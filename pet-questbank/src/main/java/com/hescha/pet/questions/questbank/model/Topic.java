@@ -1,6 +1,7 @@
 package com.hescha.pet.questions.questbank.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Transient;
@@ -15,12 +16,16 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id",
+        scope      = Topic.class
+)
 public class Topic extends AbstractEntity{
     @Column(nullable = false, unique = true)
     private String name;
 
     @Transient
-    @JsonManagedReference
     private List<Question> questions = new ArrayList<>();
 
     @Override
