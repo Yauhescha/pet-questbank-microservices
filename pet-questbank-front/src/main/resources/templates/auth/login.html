@@ -6,7 +6,7 @@
 <body>
 <th:block th:replace="~{fragments/layout :: navbar}"></th:block>
 
-<div class="container mt-4" style="max-width: 400px;">
+<div class="container-fluid px-3 px-md-5 mt-4" style="max-width: 400px;">
     <h2>Вход</h2>
     <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
     <form th:action="@{/auth/login}" method="post">

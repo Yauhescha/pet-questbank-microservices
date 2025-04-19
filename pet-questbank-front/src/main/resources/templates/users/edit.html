@@ -6,7 +6,7 @@
 <body>
 <th:block th:replace="~{fragments/layout :: navbar}"></th:block>
 
-<div class="container mt-4">
+<div class="container-fluid px-3 px-md-5 mt-4">
     <h2>Редактировать пользователя</h2>
     <form th:action="@{|/users/update/${user.id}|}" th:object="${user}" method="post">
         <div class="mb-3">

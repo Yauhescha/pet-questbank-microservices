@@ -6,7 +6,7 @@
 <body>
 <th:block th:replace="fragments/layout :: navbar"></th:block>
 
-<div class="container mt-4">
+<div class="container-fluid px-3 px-md-5 mt-4">
     <h2>Просмотр вопроса</h2>
     <p><strong>ID:</strong> <span th:text="${question.id}"></span></p>
     <p><strong>Вопрос:</strong> <span th:text="${question.question}"></span></p>
@@ -15,7 +15,19 @@
     <!-- Используем th:utext, чтобы теги <p>, <b> и т.д. обрабатывались как HTML -->
     <div th:utext="${question.answer}"></div>
 
-    <a class="btn btn-secondary" th:href="@{/questions}">Назад</a>
+
+    <div class="d-flex justify-content-between mb-3">
+        <a class="btn btn-outline-primary"
+           th:if="${prevId != null}"
+           th:href="@{|/questions/${prevId}|}">← Предыдущий</a>
+
+        <a class="btn btn-secondary" th:href="@{/questions}">Назад</a>
+
+        <a class="btn btn-outline-primary ms-auto"
+           th:if="${nextId != null}"
+           th:href="@{|/questions/${nextId}|}">Следующий →</a>
+    </div>
+
 </div>
 
 <th:block th:replace="fragments/layout :: scripts"></th:block>

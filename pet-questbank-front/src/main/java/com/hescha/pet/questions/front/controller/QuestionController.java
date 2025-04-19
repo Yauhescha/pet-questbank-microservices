@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
@@ -79,6 +80,39 @@ public class QuestionController {
     public String viewQuestion(@PathVariable Long id, Model model) {
         Question question = restTemplate.getForObject(questionApiUrl + "/" + id, Question.class);
         model.addAttribute("question", question);
+        model.addAttribute("prevId", findPrevId(id));
+        model.addAttribute("nextId", findNextId(id));
         return "questions/view";
     }
+
+
+    private Long findPrevId(Long currentId) {
+        Long id = currentId - 1;
+        while (id > 0) {
+            try {
+                restTemplate.getForEntity(questionApiUrl + "/" + id, Question.class);
+                return id;
+            } catch (HttpClientErrorException.NotFound e) {
+                id--;
+            }
+        }
+        return null;
+    }
+
+    private Long findNextId(Long currentId) {
+        Long id = currentId + 1;
+        while (true) {
+            try {
+                restTemplate.getForEntity(questionApiUrl + "/" + id, Question.class);
+                return id;
+            } catch (HttpClientErrorException.NotFound e) {
+                id++;
+                // Чтобы не зациклиться при отсутствии следующих вопросов,
+                // ограничимся 1000 попытками; в реальном проекте лучше запрашивать
+                // крайний id из БД/сервиса.
+                if (id - currentId > 10) return null;
+            }
+        }
+    }
+
 }

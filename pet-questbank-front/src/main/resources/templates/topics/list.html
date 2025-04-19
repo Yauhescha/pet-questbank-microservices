@@ -6,31 +6,50 @@
 <body>
 <th:block th:replace="~{fragments/layout :: navbar}"></th:block>
 
-<div class="container mt-4">
+<div class="container-fluid px-3 px-md-5 mt-4">
     <h2>Список тем</h2>
     <a class="btn btn-success mb-2" th:href="@{/topics/create}">Создать тему</a>
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Название</th>
-            <th>Действия</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="t : ${topics}">
-            <td th:text="${t.id}"></td>
-            <td th:text="${t.name}"></td>
-            <td>
-                <a class="btn btn-sm btn-info" th:href="@{|/topics/${t.id}|}">View</a>
-                <a class="btn btn-sm btn-primary" th:href="@{|/topics/edit/${t.id}|}">Edit</a>
-                <a class="btn btn-sm btn-danger" th:href="@{|/topics/delete/${t.id}|}">Delete</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Название</th>
+                <th>Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="t : ${topics}">
+                <td th:text="${t.id}"></td>
+                <td th:text="${t.name}"></td>
+                <td>
+                    <a class="btn btn-sm btn-info" th:href="@{|/topics/${t.id}|}">View</a>
+                    <a class="btn btn-sm btn-primary" th:href="@{|/topics/edit/${t.id}|}">Edit</a>
+                    <a class="btn btn-sm btn-danger delete-link" th:href="@{|/topics/delete/${t.id}|}">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+<th:block th:replace="fragments/confirm-delete :: confirm-modal"></th:block>
+<script>
+    // Делегируем событие на все ссылки .delete-link
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('a.delete-link').forEach(link => {
+            link.addEventListener('click', evt => {
+                evt.preventDefault();
+                const href = link.getAttribute('href');
+                const btn  = document.getElementById('confirmDeleteBtn');
+                btn.setAttribute('href', href);
+                const modal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+                modal.show();
+            });
+        });
+    });
+</script>
+
 </body>
 </html>
