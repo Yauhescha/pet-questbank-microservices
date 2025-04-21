@@ -85,6 +85,17 @@ public class QuestionController {
         return "questions/view";
     }
 
+    @GetMapping("/toggle-mark/{id}")
+    public String toggleMark(@PathVariable Long id) {
+        // 1) Получаем текущий вопрос
+        Question q = restTemplate.getForObject(questionApiUrl + "/" + id, Question.class);
+        // 2) Инвертируем флаг
+        q.setMarked(q.getMarked() == null ? true : !q.getMarked());
+        // 3) Сохраняем
+        restTemplate.put(questionApiUrl + "/" + id, q);
+        // 4) Возвращаемся к списку
+        return "redirect:/questions";
+    }
 
     private Long findPrevId(Long currentId) {
         Long id = currentId - 1;

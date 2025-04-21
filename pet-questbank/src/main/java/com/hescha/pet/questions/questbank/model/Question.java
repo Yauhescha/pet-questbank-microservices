@@ -27,6 +27,10 @@ public class Question extends AbstractEntity {
     @Column(length = 20480)
     private String answer;
 
+    // Новое поле — отмечен ли вопрос
+    @Column(nullable = false)
+    private Boolean marked = false;
+
     // Много вопросов -> одна тема
     @ManyToOne
     @JoinColumn(name = "topic_id")

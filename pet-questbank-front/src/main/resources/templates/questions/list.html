@@ -16,19 +16,36 @@
                 <th>ID</th>
                 <th>Topic</th>
                 <th>Question</th>
+<!--                <th>Marked</th>-->
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="q : ${questions}">
+            <tr th:each="q : ${questions}"
+                th:classappend="${q.marked} ? 'table-warning'">
                 <td th:text="${q.id}"></td>
                 <td th:text="${q.topic != null ? q.topic.name : 'Без темы'}"></td>
                 <td th:text="${q.question}"></td>
+                <!-- показываем флажок -->
+<!--                <td class="text-center">-->
+<!--                    <i class="bi"-->
+<!--                       th:classappend="${q.marked} ? 'bi-bookmark-fill text-primary' : 'bi-bookmark'"></i>-->
+<!--                </td>-->
                 <td>
-                    <a class="btn btn-sm btn-info" th:href="@{|/questions/${q.id}|}">View</a>
-                    <a class="btn btn-sm btn-primary" th:href="@{|/questions/edit/${q.id}|}">Edit</a>
-                    <a class="btn btn-sm btn-danger delete-link" th:href="@{|/questions/delete/${q.id}|}">Delete</a>
-
+                    <a class="btn btn-sm btn-info me-1" th:href="@{|/questions/${q.id}|}">View</a>
+                    <a class="btn btn-sm btn-primary me-1" th:href="@{|/questions/edit/${q.id}|}">Edit</a>
+                    <!-- Toggle mark -->
+                    <a class="btn btn-sm"
+                       th:classappend="${q.marked} ? 'btn-outline-secondary' : 'btn-outline-success'"
+                       th:href="@{|/questions/toggle-mark/${q.id}|}">
+                        <span th:text="${q.marked} ? 'Unmark' : 'Mark'"></span>
+                    </a>
+                    <!-- Удаление через модал -->
+                    <a href="#"
+                       class="btn btn-sm btn-danger delete-btn"
+                       th:attr="data-href=@{|/questions/delete/${q.id}|}">
+                        Delete
+                    </a>
                 </td>
             </tr>
             </tbody>

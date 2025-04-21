@@ -19,6 +19,7 @@ import java.util.Objects;
 public class Question extends AbstractEntity {
     private String question;
     private String answer;
+    private Boolean marked;
     private Topic topic;
 
     @Override

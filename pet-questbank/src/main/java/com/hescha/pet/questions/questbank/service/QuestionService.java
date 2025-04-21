@@ -35,6 +35,7 @@ public class QuestionService extends CrudService<Question> {
     private void updateFields(Question entity, Question read) {
         read.setQuestion(entity.getQuestion());
         read.setAnswer(entity.getAnswer());
+        read.setMarked(entity.getMarked());
         read.setTopic(entity.getTopic());
     }
 
