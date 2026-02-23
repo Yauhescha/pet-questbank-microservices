@@ -16,7 +16,6 @@
                 <th>ID</th>
                 <th>Topic</th>
                 <th>Question</th>
-<!--                <th>Marked</th>-->
                 <th>Actions</th>
             </tr>
             </thead>
@@ -26,11 +25,6 @@
                 <td th:text="${q.id}"></td>
                 <td th:text="${q.topic != null ? q.topic.name : 'Без темы'}"></td>
                 <td th:text="${q.question}"></td>
-                <!-- показываем флажок -->
-<!--                <td class="text-center">-->
-<!--                    <i class="bi"-->
-<!--                       th:classappend="${q.marked} ? 'bi-bookmark-fill text-primary' : 'bi-bookmark'"></i>-->
-<!--                </td>-->
                 <td>
                     <a class="btn btn-sm btn-info me-1" th:href="@{|/questions/${q.id}|}">View</a>
                     <a class="btn btn-sm btn-primary me-1" th:href="@{|/questions/edit/${q.id}|}">Edit</a>

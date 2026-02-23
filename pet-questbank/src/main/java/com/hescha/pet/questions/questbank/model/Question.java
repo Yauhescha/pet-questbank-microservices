@@ -2,10 +2,7 @@ package com.hescha.pet.questions.questbank.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +18,7 @@ import java.util.Objects;
         property = "id",
         scope      = Question.class
 )
+@Table(name = "questions")
 public class Question extends AbstractEntity {
     @Column
     private String question;
